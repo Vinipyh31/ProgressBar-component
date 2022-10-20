@@ -40,16 +40,19 @@ function ProgressBar({ items, width, height }) {
         height: height,
       }}>
       <div className='bars'>
-        {filteredItems.map((item) => {
+        {filteredItems.map((item, i) => {
           const percent = item.value / (sumOfValues * 0.01)
           let numOfBars = Math.round(maxBars * 0.01 * percent);
           if (!numOfBars) numOfBars = 1;
-          return [...Array(numOfBars)].map(() => <Bar height={heightForRows} color={item.color} />)
+          return [...Array(numOfBars)].map((n, j) => <Bar key={`${i}.${j}`} height={heightForRows} color={item.color} />)
         })}
       </div>
       <div className='description'>
-        {filteredItems.map((item) =>
-          <div className='description__item'>
+        {filteredItems.map((item, index) =>
+          <div
+            className='description__item'
+            key={index}
+          >
             <div
               className='circle'
               style={{
